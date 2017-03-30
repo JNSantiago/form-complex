@@ -16,12 +16,12 @@ Estrutura do collection_select(Assinatura do método):
 collection_select(object, method, collection, value_method, text_method, options = {}, html_options = {})
 ```
 Onde:
-object: Qual o objeto do formulário, no caso User
-method: Campo que receberá o valor: kind_id
-collection: Coleção de onde virá os dados: Kinds.all
-value_method: O que precisa armazenar: no caso o id
-text_method: O que será exibido
-html_options: Opcional: css
+* object: Qual o objeto do formulário, no caso User
+* method: Campo que receberá o valor: kind_id
+* collection: Coleção de onde virá os dados: Kinds.all
+* value_method: O que precisa armazenar: no caso o id
+* text_method: O que será exibido
+* html_options: Opcional: css
 
 Ficando assim:
 ```ruby
@@ -72,7 +72,7 @@ app/views/user/_form.html.erb
 
 Onde @address dever ser instanciado no new e no edit do controller de user
 ```ruby
-@user.build.address
+@user.build_address
 ```
 Mas ainda não funciona ao submeter o formulário, ainda resta aceitar os parâmetros de address no método user_params do users_controller:
 ```ruby
