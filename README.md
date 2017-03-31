@@ -1,5 +1,31 @@
 Criando formulários complexos com Rails
 =======================================
+Obs.: Serão usados os seguintes scaffolds:
+* rails g scaffold kind description
+* rails g scaffold user name age:integer email kind:references
+* rails g scaffold phone phone contact:references
+* rails g scaffold address street city state contact:references
+
+Em seguida rode o comando:
+```ruby
+rake db:migrate
+```
+Os relacionamentos são os seguintes:
+```ruby
+# app/models/user.rb
+has_one :address
+has_many :phones
+belongs_to :kind
+
+# app/models/kind.rb
+has_many :users
+
+# app/models/phone.rb
+belongs_to :user, optional: true
+
+# app/models/address
+belongs_to :user, optional: true
+```
 
 Formulários em relação 1:n (Dropdown select HTML, buscando do BD)
 -----------------------------------------------------------------
@@ -54,7 +80,7 @@ belongs_to :user, optional: true
 Em seguida devemos colocar o form de address dentro do form de user:
 ```ruby
 app/views/user/_form.html.erb
-<%= f.fields_for @address do |ff| %>
+<%= f.fields_for :address do |ff| %>
   <div class="field">
     <%= ff.label :street %>
     <%= ff.text_field :street %>
@@ -176,7 +202,7 @@ Para funcionar todos itens do form devem estar dentro de uma div com id="phones"
     <%= render partial: "phone_fields", locals: { f:fff } %>
   <% end %>
 </div>
-```ruby
+```
 
 Criar um partial com o nome: _phone_fields.html.erb
 ```ruby
